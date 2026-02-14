@@ -91,9 +91,9 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Demo / Karathon: Role info & credentials for assessors */}
+          {/* Demo / Krackathon: Role info & credentials for assessors */}
           <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50/80 px-4 py-3 text-xs text-gray-700">
-            <p className="font-semibold text-blue-900 mb-2">Demo / Karathon — Role & Login</p>
+            <p className="font-semibold text-blue-900 mb-2">Demo / Krackathon — Role & Login</p>
             <ul className="space-y-2">
               <li>
                 <span className="font-medium text-blue-800">Admin</span> — Manage users, register patients & staff, assign patients to doctors.

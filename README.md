@@ -32,7 +32,7 @@ A two-sided medication compliance tracking system built for Malaysia.
 - **Tailwind CSS**
 - **@supabase/ssr** for cookie-based server auth
 
-## Demo / Karathon Login
+## Demo / Krackathon Login
 
 | Role   | Username   | Password |
 |--------|------------|----------|
