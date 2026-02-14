@@ -28,19 +28,22 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      // Get user role and redirect accordingly
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      const { data } = await supabase.auth.getUser();
+      const user = data?.user ?? null;
       if (user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("role")
-          .eq("id", user.id)
-          .single();
-
+        let role = user.user_metadata?.role;
+        if (!role) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .maybeSingle();
+          role = profile?.role;
+        }
         const redirectTo =
-          profile?.role === "doctor" ? "/doctor" : "/patient";
+          role === "admin" ? "/admin" :
+          role === "frontdesk" ? "/frontdesk" :
+          role === "doctor" ? "/doctor" : "/patient";
         return NextResponse.redirect(`${origin}${redirectTo}`);
       }
     }

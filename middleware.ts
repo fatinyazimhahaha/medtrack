@@ -50,60 +50,48 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
+  const user = data?.user ?? null;
 
   // If not authenticated, redirect to login
   if (!user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   // Fetch role - try profiles table first, fall back to user metadata
   let role: string | null = null;
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
-
-  role = profile?.role || user.user_metadata?.role || null;
+  try {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .maybeSingle();
+    role = profile?.role || user.user_metadata?.role || null;
+  } catch {
+    role = user.user_metadata?.role || null;
+  }
 
   // Unknown role — redirect to login to avoid wrong dashboard
   if (!role) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   // Role-based routing guards
   if (pathname.startsWith("/patient") && role !== "patient") {
-    const url = request.nextUrl.clone();
-    url.pathname = role === "admin" ? "/admin" : STAFF_ROLES.includes(role) ? "/doctor" : "/";
-    return NextResponse.redirect(url);
+    const target = role === "admin" ? "/admin" : STAFF_ROLES.includes(role) ? "/doctor" : "/";
+    return NextResponse.redirect(new URL(target, request.url));
   }
-
-  // /doctor routes are accessible to doctor (staff roles)
   if (pathname.startsWith("/doctor") && !STAFF_ROLES.includes(role)) {
-    const url = request.nextUrl.clone();
-    url.pathname = role === "admin" ? "/admin" : role === "patient" ? "/patient" : "/";
-    return NextResponse.redirect(url);
+    const target = role === "admin" ? "/admin" : role === "patient" ? "/patient" : "/";
+    return NextResponse.redirect(new URL(target, request.url));
   }
-
-  // /admin routes are accessible only to admin role
   if (pathname.startsWith("/admin") && role !== "admin") {
-    const url = request.nextUrl.clone();
-    url.pathname = STAFF_ROLES.includes(role) ? "/doctor" : FRONTDESK_ROLES.includes(role) ? "/frontdesk" : role === "patient" ? "/patient" : "/";
-    return NextResponse.redirect(url);
+    const target = STAFF_ROLES.includes(role) ? "/doctor" : FRONTDESK_ROLES.includes(role) ? "/frontdesk" : role === "patient" ? "/patient" : "/";
+    return NextResponse.redirect(new URL(target, request.url));
   }
-
-  // /frontdesk routes are accessible only to frontdesk role
   if (pathname.startsWith("/frontdesk") && role !== "frontdesk") {
-    const url = request.nextUrl.clone();
-    url.pathname = role === "admin" ? "/admin" : STAFF_ROLES.includes(role) ? "/doctor" : role === "patient" ? "/patient" : "/";
-    return NextResponse.redirect(url);
+    const target = role === "admin" ? "/admin" : STAFF_ROLES.includes(role) ? "/doctor" : role === "patient" ? "/patient" : "/";
+    return NextResponse.redirect(new URL(target, request.url));
   }
 
   return supabaseResponse;
