@@ -116,7 +116,7 @@ export async function registerPatient(formData: FormData) {
   };
 }
 
-// ── Register a new staff member (doctor, frontdesk, admin) ──
+// ── Register a new staff member (doctor, admin) ──
 export async function registerStaff(formData: FormData) {
   const { error: authError, caller } = await verifyAdmin();
   if (authError || !caller) return { error: authError || "Unauthorized" };
@@ -129,7 +129,7 @@ export async function registerStaff(formData: FormData) {
   if (!fullName) return { error: "Name is required" };
   if (!username) return { error: "Username is required" };
   
-  const validRoles = ["doctor", "frontdesk", "admin"];
+  const validRoles = ["doctor", "admin"];
   if (!role || !validRoles.includes(role)) {
     return { error: `Role must be one of: ${validRoles.join(", ")}` };
   }
@@ -162,7 +162,6 @@ export async function registerStaff(formData: FormData) {
 
   const roleLabels: Record<string, string> = {
     doctor: "Doctor",
-    frontdesk: "Front Desk",
     admin: "Admin",
   };
 
@@ -248,7 +247,7 @@ export async function updateUserProfile(formData: FormData) {
   if (!userId) return { error: "User ID is required" };
   if (!fullName) return { error: "Full name is required" };
 
-  const validRoles = ["patient", "doctor", "frontdesk", "admin"];
+  const validRoles = ["patient", "doctor", "admin"];
   if (!role || !validRoles.includes(role)) {
     return { error: `Role must be one of: ${validRoles.join(", ")}` };
   }

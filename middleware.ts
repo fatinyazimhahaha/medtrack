@@ -2,8 +2,6 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 const STAFF_ROLES = ["doctor"];
-const FRONTDESK_ROLES = ["frontdesk"];
-const ALL_INTERNAL_ROLES = ["doctor", "frontdesk", "admin"];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -86,10 +84,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(target, request.url));
   }
   if (pathname.startsWith("/admin") && role !== "admin") {
-    const target = STAFF_ROLES.includes(role) ? "/doctor" : FRONTDESK_ROLES.includes(role) ? "/frontdesk" : role === "patient" ? "/patient" : "/";
+    const target = STAFF_ROLES.includes(role) ? "/doctor" : role === "patient" ? "/patient" : "/";
     return NextResponse.redirect(new URL(target, request.url));
   }
-  if (pathname.startsWith("/frontdesk") && role !== "frontdesk") {
+  // /frontdesk is hidden — redirect everyone to appropriate dashboard or /
+  if (pathname.startsWith("/frontdesk")) {
     const target = role === "admin" ? "/admin" : STAFF_ROLES.includes(role) ? "/doctor" : role === "patient" ? "/patient" : "/";
     return NextResponse.redirect(new URL(target, request.url));
   }

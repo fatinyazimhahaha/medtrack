@@ -42,8 +42,8 @@ export async function GET(request: Request) {
         }
         const redirectTo =
           role === "admin" ? "/admin" :
-          role === "frontdesk" ? "/frontdesk" :
-          role === "doctor" ? "/doctor" : "/patient";
+          role === "doctor" ? "/doctor" :
+          role === "patient" ? "/patient" : "/";
         return NextResponse.redirect(`${origin}${redirectTo}`);
       }
     }

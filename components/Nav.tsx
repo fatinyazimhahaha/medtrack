@@ -11,7 +11,6 @@ interface NavProps {
 }
 
 const isStaff = (role: string | null) => role === "doctor";
-const isFrontdesk = (role: string | null) => role === "frontdesk";
 
 export default function Nav({ role, fullName }: NavProps) {
   const router = useRouter();
@@ -69,13 +68,6 @@ export default function Nav({ role, fullName }: NavProps) {
               </Link>
               <Link href="/doctor/import" className="nav-link">
                 Import
-              </Link>
-            </>
-          )}
-          {isFrontdesk(role) && (
-            <>
-              <Link href="/frontdesk" className="nav-link">
-                Front Desk
               </Link>
             </>
           )}
@@ -144,9 +136,6 @@ export default function Nav({ role, fullName }: NavProps) {
               <Link href="/doctor/prescribe" onClick={() => setMobileOpen(false)} className="block py-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors">Prescribe</Link>
               <Link href="/doctor/import" onClick={() => setMobileOpen(false)} className="block py-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors">Import</Link>
             </>
-          )}
-          {isFrontdesk(role) && (
-            <Link href="/frontdesk" onClick={() => setMobileOpen(false)} className="block py-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors">Front Desk</Link>
           )}
           {role === "admin" && (
             <Link href="/admin" onClick={() => setMobileOpen(false)} className="block py-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors">Admin</Link>

@@ -181,8 +181,7 @@ export default function AdminDashboardClient({
       <div className="mb-6 rounded-xl border border-blue-200 bg-blue-50 p-4">
         <p className="text-sm text-blue-800 font-medium">Workflow:</p>
         <p className="text-sm text-blue-700 mt-1">
-          <strong>Admin</strong> registers doctors &amp; front desk staff &rarr;{" "}
-          <strong>Front Desk</strong> registers patients &amp; assigns to doctors &rarr;{" "}
+          <strong>Admin</strong> registers doctors &amp; patients, assigns patients to doctors &rarr;{" "}
           <strong>Doctor</strong> keys in medications &rarr;{" "}
           <strong>Patient</strong> logs daily doses &rarr;{" "}
           <strong>Doctor</strong> monitors compliance
@@ -226,7 +225,6 @@ export default function AdminDashboardClient({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <StatCard label="Patients" count={patients.length} color="blue" />
             <StatCard label="Doctors" count={doctors.length} color="green" />
-            <StatCard label="Front Desk" count={frontdesk.length} color="purple" />
             <StatCard label="Admins" count={admins.length} color="amber" />
           </div>
 
@@ -274,7 +272,6 @@ export default function AdminDashboardClient({
                     { value: "all", label: "All" },
                     { value: "patient", label: "Patient" },
                     { value: "doctor", label: "Doctor" },
-                    { value: "frontdesk", label: "Front Desk" },
                     { value: "admin", label: "Admin" },
                   ].map((opt) => (
                     <button
@@ -636,7 +633,6 @@ export default function AdminDashboardClient({
                 className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent outline-none"
               >
                 <option value="doctor">Doctor</option>
-                <option value="frontdesk">Front Desk</option>
                 <option value="admin">Admin</option>
               </select>
             </div>
@@ -778,7 +774,6 @@ function EditUserModal({
             >
               <option value="patient">Patient</option>
               <option value="doctor">Doctor</option>
-              <option value="frontdesk">Front Desk</option>
               <option value="admin">Admin</option>
             </select>
           </div>

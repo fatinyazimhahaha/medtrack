@@ -48,8 +48,6 @@ export default function LoginPage() {
         // Use window.location for hard redirect (ensures server picks up new session)
         if (role === "admin") {
           window.location.href = "/admin";
-        } else if (role === "frontdesk") {
-          window.location.href = "/frontdesk";
         } else if (role === "doctor") {
           window.location.href = "/doctor";
         } else if (role === "patient") {
