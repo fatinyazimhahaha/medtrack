@@ -17,12 +17,21 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // 2. For protected routes, refresh session via Supabase
+  // 2. Require Supabase env in middleware (Edge may not have .env.local in some setups)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error("Middleware: NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY is missing");
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  try {
+  // 3. For protected routes, refresh session via Supabase
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {
@@ -98,6 +107,10 @@ export async function middleware(request: NextRequest) {
   }
 
   return supabaseResponse;
+  } catch (err) {
+    console.error("Middleware error:", err);
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 }
 
 export const config = {
