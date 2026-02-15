@@ -388,7 +388,7 @@ export default function AdminDashboardClient({
       {activeTab === "register-patient" && (
         <div className="space-y-6">
           {/* Register new patient form */}
-          <div className="card max-w-xl">
+          <div className="card max-w-xl lg:max-w-3xl">
             <h2 className="text-lg font-bold text-gray-900 mb-4">Register New Patient</h2>
             <p className="text-sm text-gray-500 mb-6">
               Create a patient account. They can log in with the username &amp; password you set.
@@ -488,7 +488,7 @@ export default function AdminDashboardClient({
 
           {/* Assign existing patient to doctor */}
           {patients.length > 0 && staff.length > 0 && (
-            <div className="card max-w-xl">
+            <div className="card max-w-xl lg:max-w-3xl">
               <h2 className="text-lg font-bold text-gray-900 mb-2">Assign Existing Patient to Doctor</h2>
               <p className="text-sm text-gray-500 mb-5">
                 Link a registered patient to a doctor for prescription &amp; monitoring.
@@ -541,7 +541,7 @@ export default function AdminDashboardClient({
 
           {/* Current assignments list */}
           {links.length > 0 && (
-            <div className="card overflow-hidden max-w-xl">
+            <div className="card overflow-hidden max-w-xl lg:max-w-3xl">
               <div className="px-4 py-3 border-b border-gray-100">
                 <h3 className="font-semibold text-gray-900 text-sm">
                   Current Assignments ({links.length})
@@ -582,7 +582,7 @@ export default function AdminDashboardClient({
 
       {/* ── REGISTER STAFF TAB ── */}
       {activeTab === "register-staff" && (
-        <div className="card max-w-xl">
+        <div className="card max-w-xl lg:max-w-3xl">
           <h2 className="text-lg font-bold text-gray-900 mb-4">Register Staff</h2>
           <p className="text-sm text-gray-500 mb-6">
             Create accounts for doctors, front desk staff, or additional admins.
