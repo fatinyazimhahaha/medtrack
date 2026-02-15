@@ -486,59 +486,6 @@ export default function AdminDashboardClient({
             </form>
           </div>
 
-          {/* Assign existing patient to doctor */}
-          {patients.length > 0 && staff.length > 0 && (
-            <div className="card max-w-xl lg:max-w-3xl">
-              <h2 className="text-lg font-bold text-gray-900 mb-2">Assign Existing Patient to Doctor</h2>
-              <p className="text-sm text-gray-500 mb-5">
-                Link a registered patient to a doctor for prescription &amp; monitoring.
-              </p>
-              <form action={handleLink} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Patient <span className="text-red-400">*</span>
-                  </label>
-                  <select
-                    name="patient_id"
-                    required
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent outline-none"
-                  >
-                    <option value="">Select patient...</option>
-                    {patients.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.full_name} {p.mrn ? `(${p.mrn})` : ""}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Doctor <span className="text-red-400">*</span>
-                  </label>
-                  <select
-                    name="doctor_id"
-                    required
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent outline-none"
-                  >
-                    <option value="">Select doctor...</option>
-                    {staff.map((d) => (
-                      <option key={d.id} value={d.id}>
-                        {d.full_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  disabled={isPending}
-                  className="btn-primary w-full disabled:opacity-50"
-                >
-                  {isPending ? "Assigning..." : "Assign Patient to Doctor"}
-                </button>
-              </form>
-            </div>
-          )}
-
           {/* Current assignments list */}
           {links.length > 0 && (
             <div className="card overflow-hidden max-w-xl lg:max-w-3xl">
