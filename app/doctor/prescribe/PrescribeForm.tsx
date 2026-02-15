@@ -190,9 +190,9 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* ── Select Patient ── */}
-      <section className="card">
+      <section className="card p-4 sm:p-6">
         <div className="flex items-center gap-3 mb-5">
           <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-700 text-sm font-bold">
             1
@@ -230,10 +230,10 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
       </section>
 
       {/* ── Medications ── */}
-      <section className="card">
-        <div className="flex items-center justify-between mb-5">
+      <section className="card p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-700 text-sm font-bold">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-700 text-sm font-bold shrink-0">
               2
             </div>
             <h2 className="text-lg font-bold text-[var(--text-primary)]">
@@ -243,7 +243,7 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
           <button
             type="button"
             onClick={addMed}
-            className="btn-secondary text-sm"
+            className="btn-secondary text-sm w-full sm:w-auto shrink-0"
           >
             + Add Medication
           </button>
@@ -253,7 +253,7 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
           {meds.map((med, idx) => (
             <div
               key={med.id}
-              className="relative rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] p-5"
+              className="relative rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] p-4 sm:p-5"
             >
               {/* Remove button */}
               {meds.length > 1 && (
@@ -374,7 +374,7 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
               {/* Time slots */}
               <div className="mt-4">
                 <label className="form-label">Scheduled Times *</label>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
                   {TIME_SLOTS.map((slot) => (
                     <button
                       key={slot.value}
@@ -397,7 +397,7 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
                 <label className="form-label text-blue-700 font-bold mb-3 block">
                   Schedule Period
                 </label>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="form-label text-xs">Start Date</label>
                     <input
@@ -447,7 +447,7 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
       </section>
 
       {/* ── Summary + Submit ── */}
-      <section className="card bg-blue-50 border-blue-200">
+      <section className="card bg-blue-50 border-blue-200 p-4 sm:p-6">
         <h3 className="text-sm font-bold text-blue-800 mb-2">Prescription Summary</h3>
         <p className="text-sm text-blue-700">
           Patient: <strong>{selectedPatient?.full_name || "—"}</strong>

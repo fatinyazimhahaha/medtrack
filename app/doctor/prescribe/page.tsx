@@ -31,8 +31,8 @@ export default async function PrescribePage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <div className="mb-8">
+    <div className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-4 sm:px-0">
+      <div className="mb-6 sm:mb-8">
         <a
           href="/doctor"
           className="text-sm text-blue-600 hover:text-blue-800"
