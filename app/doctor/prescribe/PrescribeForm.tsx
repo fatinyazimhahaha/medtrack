@@ -374,13 +374,13 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
               {/* Time slots */}
               <div className="mt-4">
                 <label className="form-label">Scheduled Times *</label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2">
                   {TIME_SLOTS.map((slot) => (
                     <button
                       key={slot.value}
                       type="button"
                       onClick={() => toggleTime(med.id, slot.value)}
-                      className={`rounded-full px-4 py-1.5 text-sm font-medium border transition-all ${
+                      className={`rounded-full px-3 sm:px-4 py-2 sm:py-1.5 text-sm font-medium border transition-all min-w-0 ${
                         med.times.includes(slot.value)
                           ? "bg-blue-600 text-white border-blue-600"
                           : "bg-white text-gray-600 border-gray-300 hover:border-blue-400"
@@ -397,7 +397,7 @@ export default function PrescribeForm({ patients }: { patients: AssignedPatient[
                 <label className="form-label text-blue-700 font-bold mb-3 block">
                   Schedule Period
                 </label>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="form-label text-xs">Start Date</label>
                     <input
